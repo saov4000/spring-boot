@@ -1,12 +1,17 @@
 package com.saov.aula.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,19 +24,21 @@ public class User implements Serializable{
 	private long id;
 	private String name;
 	private String email;
-	private String prone;
+	private String phone;
 	private String password;
 	
-	public User() {
-		
-	}
+	//@JsonIgnore
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
 	
-	public User(long id, String name, String email, String prone, String password) {
+	public User() {}
+
+	public User(long id, String name, String email, String phone, String password) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.prone = prone;
+		this.phone = phone;
 		this.password = password;
 	}
 
@@ -60,11 +67,11 @@ public class User implements Serializable{
 	}
 
 	public String getProne() {
-		return prone;
+		return phone;
 	}
 
 	public void setProne(String prone) {
-		this.prone = prone;
+		this.phone = prone;
 	}
 
 	public String getPassword() {
@@ -73,6 +80,10 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public List<Order> getOrders() {
+		return orders;
 	}
 
 	@Override
@@ -91,6 +102,5 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return id == other.id;
 	}
-	
-	
+		
 }
