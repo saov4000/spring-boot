@@ -46,6 +46,7 @@ public class OrderItem implements Serializable{
 		return id.getProduct();
 	}
 	
+	@JsonIgnore
 	public void setProduct(Product product) {
 		id.setProduct(product);
 	}
